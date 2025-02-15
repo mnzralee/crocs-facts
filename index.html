@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Crocodile Facts</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+
+        .container {
+            text-align: center;
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+            max-width: 400px;
+            width: 100%;
+        }
+
+        .fact-display {
+            margin: 20px 0;
+            padding: 15px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            background-color: #fafafa;
+            min-height: 50px;
+            overflow: hidden;
+        }
+
+        button {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            background-color: #007BFF;
+            color: white;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        button:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Crocodile Facts</h1>
+        <div id="factDisplay" class="fact-display"></div>
+        <button id="factButton">Get Another Fact</button>
+    </div>
+    <script>
+        const crocodileFacts = {
+            "crocodile_facts": [
+                { "fact": "Crocodiles are reptiles and belong to the order Crocodylia." },
+                { "fact": "They can live for 70 to 100 years in the wild." },
+                { "fact": "Crocodiles are carnivorous and primarily eat fish, birds, and mammals." },
+                { "fact": "They have powerful jaws with a bite force of over 3,000 pounds per square inch." },
+                { "fact": "Crocodiles can hold their breath underwater for up to an hour." },
+                { "fact": "They are ectothermic, meaning their body temperature is regulated by their environment." },
+                { "fact": "Crocodiles have a unique ability to see in the dark due to a reflective layer behind their retinas." },
+                { "fact": "They can swim at speeds of up to 20 miles per hour in short bursts." },
+                { "fact": "Crocodiles communicate through a variety of vocalizations, including growls and hisses." },
+                { "fact": "There are 15 recognized species of crocodiles, including the Nile crocodile and the saltwater crocodile." }
+            ]
+        };
+
+        let attempts = 0;
+
+        function getRandomFact() {
+            const facts = crocodileFacts.crocodile_facts;
+            const randomIndex = Math.floor(Math.random() * facts.length);
+            return facts[randomIndex].fact;
+        }
+
+        function displayFact() {
+            const factDisplay = document.getElementById('factDisplay');
+            factDisplay.textContent = getRandomFact();
+        }
+
+        function moveButton() {
+            const button = document.getElementById('factButton');
+            const randomX = Math.random() * (window.innerWidth - button.offsetWidth);
+            const randomY = Math.random() * (window.innerHeight - button.offsetHeight);
+            button.style.position = 'absolute';
+            button.style.left = `${randomX}px`;
+            button.style.top = `${randomY}px`;
+        }
+
+        document.getElementById('factButton').addEventListener('mouseover', () => {
+            attempts++;
+            if (attempts < 3) {
+                moveButton();
+            } else {
+                displayFact();
+                attempts = 0; // Reset attempts after displaying fact
+            }
+        });
+
+        // Display a random fact immediately when the page loads
+        window.onload = displayFact;
+    </script>
+</body>
+</html>
